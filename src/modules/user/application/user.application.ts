@@ -1,5 +1,6 @@
-import User from "../domain/user";
+import User, { UserProperties } from "../domain/user";
 import { UserRepository } from "../domain/user.repository";
+import { UserListDTO, UserListMapping } from "../interfaces/http/dto/response/user.list.dto";
 
 export default class UserApplication {
   constructor(private readonly userRepository: UserRepository) {}
@@ -8,19 +9,16 @@ export default class UserApplication {
     return this.userRepository.list();
   }
 
-  listOne(id: number) {
-    return this.userRepository.listOne(id);
+  listOne(guid: string) {
+    return this.userRepository.listOne(guid);
   }
 
   insert(user: User) {
     return this.userRepository.insert(user);
   }
 
-  update(user: User) {
-    return this.userRepository.update(user);
+  update(user: User):UserProperties {
+    return this.userRepository.update(user)
   }
 
-  delete(user: User) {
-    return this.userRepository.delete(user);
-  }
 }
